@@ -236,5 +236,5 @@ For `adGeneration__generateImage` the opposite applies: you are writing the fina
 - Projects cannot be created through the connector — without one there is no brand brief to design against, so send the user to the dashboard.
 - **Pausing, resuming, or launching Meta ads isn't available.** Tell the user to change ad status in Meta Ads Manager.
 - The free plan has a **daily design cap**. The error is `FORBIDDEN: daily limit reached`. Tell the user to upgrade at https://admakeai.com/pricing.
-- Facebook tools require the user to have **connected a Facebook account** in AdMakeAI first. If they haven't, `facebookConnection__list` returns empty; point them to https://admakeai.com/dashboard/integrations/facebook.
+- Facebook tools need a **paid AdMakeAI plan** (free accounts get `FORBIDDEN: The Facebook Ads integration is available on paid plans`) and a **connected Facebook account**. If `facebookConnection__list` returns empty, point them to https://admakeai.com/dashboard/integrations/facebook.
 - Nothing is ever **deleted** through the connector — not AdMakeAI ads or ad sets, and not Meta resources. If the user asks to delete something, tell them to do it in the AdMakeAI web app or Meta Ads Manager.
