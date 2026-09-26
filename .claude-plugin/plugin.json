@@ -1,0 +1,15 @@
+{
+  "name": "admakeai",
+  "displayName": "AdMakeAI",
+  "version": "1.0.0",
+  "description": "Design on-brand ad creatives and ad copy, research competitors' live ads in the Meta Ad Library, and draft and report on Meta ad campaigns from a conversation.",
+  "author": {
+    "name": "Mesmer s.r.o.",
+    "email": "support@admakeai.com",
+    "url": "https://admakeai.com"
+  },
+  "homepage": "https://admakeai.com/agents",
+  "repository": "https://github.com/mesmerlord/admakeai-agent-skills",
+  "license": "MIT",
+  "keywords": ["ads", "ad-creative", "ad-design", "ad-copy", "meta-ads", "facebook-ads", "competitor-research", "marketing"]
+}

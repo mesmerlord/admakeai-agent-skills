@@ -1,55 +1,44 @@
-# AdMakeAI Agent Skills
+# AdMakeAI for Claude
 
-Give your AI agent deep knowledge of the [AdMakeAI](https://admakeai.com) API — generate ad images, batch ad sets, manage Meta Ads, and more, all from a prompt.
+[AdMakeAI](https://admakeai.com) is an ad design studio for performance marketers. This plugin lets Claude design on-brand ad creatives, write ad copy, research the ads competitors are running in the Meta Ad Library, and draft and report on Meta ad campaigns — all from a conversation.
 
-## Install
+It bundles two pieces:
+
+- **The AdMakeAI connector** (`https://admakeai.com/api/mcp`), which gives Claude tools to work with your AdMakeAI account. You sign in with your AdMakeAI account through OAuth; no API key is needed.
+- **The `admakeai-api` skill**, which teaches Claude which tool fits each request, to always design into the right brand project, what things cost in credits, and to confirm before anything that spends credits or touches your Meta ad account.
+
+## Use it
+
+1. Create an account at [admakeai.com](https://admakeai.com) and set up a project for your brand (product, audience, logo).
+2. Install the plugin and connect the AdMakeAI connector from the plugin's **Connectors** tab.
+3. Ask Claude things like:
+   - "Design three 4:5 ads for my matcha brand aimed at tired founders."
+   - "What ads are my competitors running right now? Save the longest-running one as inspiration and remix it for my brand."
+   - "Write five headline and primary-text variations for that ad."
+   - "How did my Meta ad account do last month compared to the month before?"
+   - "Draft a Meta campaign with these three ads, but don't push it until I say so."
+
+Designing ads and videos spends credits from your AdMakeAI plan; reading, listing, research, and analytics are free. Claude asks before any action that spends credits or creates anything in your Meta ad account. Nothing is ever deleted through the plugin.
+
+## Data
+
+The plugin only talks to AdMakeAI at `admakeai.com`. When you ask for something, Claude sends the inputs that request needs — for example your creative brief, reference images you provide, ad copy, or IDs of your projects, ads, or Meta campaigns — to your AdMakeAI account through the connector. AdMakeAI stores the ads and drafts you create in your account, and reaches Meta only for the ad accounts you have connected in AdMakeAI. The plugin itself stores nothing and runs no local code.
+
+See the [privacy policy](https://admakeai.com/resources/privacy-policy) and [terms of service](https://admakeai.com/resources/terms-of-service).
+
+## Other agents
+
+The same connector works in any MCP client (Claude Code, Cursor, VS Code, ChatGPT): add `https://admakeai.com/api/mcp` as a remote MCP server. The skill installs into 40+ agents with:
 
 ```bash
-npx skills add admakeai/agent-skills
+npx skills add mesmerlord/admakeai-agent-skills
 ```
 
-Compatible with **Claude Code, Claude Desktop, Cursor, OpenAI Codex, GitHub Copilot, Gemini CLI, Windsurf, VS Code, Cline, Goose** and 40+ other agents via [skills](https://github.com/vercel-labs/skills).
+For scripts and CI there is also a REST API; see the [API reference](https://admakeai.com/api/docs).
 
-## Available skills
+## Support
 
-| Skill | What it does |
-| --- | --- |
-| [`admakeai-api`](./skills/admakeai-api/SKILL.md) | Routes user intent to the correct AdMakeAI tool, manages credits, and knows the prompt patterns that produce shippable ad creative. |
-
-## Authentication
-
-Get an API key from your [AdMakeAI dashboard](https://admakeai.com/dashboard/integrations/api):
-
-```bash
-export ADMAKEAI_API_KEY="amai_live_..."
-```
-
-The key is sent as an `x-api-key` header on every call.
-
-## What the skill does
-
-- **Tool selection** — 30+ procedures across image generation, batch ad sets, projects, Facebook ad accounts, Meta Ads Manager. The skill teaches your agent which one to pick from natural-language intent.
-- **Credit awareness** — Generation calls cost credits. The skill warns the agent before expensive batch operations.
-- **Safe defaults** — Destructive calls (uploading to Meta, pausing campaigns) are flagged so the agent confirms with you first.
-- **Pagination** — Long lists (ad generations, Meta ads, analytics) use a `cursor`/`page` pattern the skill knows about.
-- **Prompt patterns** — Examples of prompts that produce good product ads, lifestyle shots, and ad-copy-aligned creative.
-
-## MCP, REST, and skill
-
-You can use all three together or pick one:
-
-- **MCP server** (`https://admakeai.com/api/mcp`) — drop the URL into Cursor/Claude/VS Code. The agent calls tools directly. Best for chat-style use.
-- **REST API** (`https://admakeai.com/api/v1/*`) — every tool is also a plain HTTPS endpoint. Best for scripts, CI, and non-MCP agents.
-- **Agent skill** (this repo) — markdown teaching layered on top of the API. Best when you want your agent to pick the right tool without you spelling it out.
-
-The MCP server and skill complement each other. Install both — MCP gives the agent the wire, the skill gives it the playbook.
-
-## Links
-
-- [API reference (interactive)](https://admakeai.com/api/docs)
-- [Dashboard / API keys](https://admakeai.com/dashboard/integrations/api)
-- [Agent landing page](https://admakeai.com/agents)
-- [Pricing](https://admakeai.com/pricing)
+Email [support@admakeai.com](mailto:support@admakeai.com). AdMakeAI is made by Mesmer s.r.o.
 
 ## License
 
