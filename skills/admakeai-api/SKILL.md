@@ -31,7 +31,7 @@ So `projectId` is required on `adGeneration__create`, and the rule is always the
 
 1. Call `adResearch__listProjects` before the first design of a session.
 2. One project? Use it. Several? Pick the one the user's request is clearly about (brand name, product, URL they mentioned) and say which one you picked. Still ambiguous? **Ask.** Never guess an id and never design into the wrong brand — that spends their credits on the wrong product.
-3. No projects at all? You cannot create one through the connector. Tell the user to set their brand up at https://admakeai.com/dashboard first.
+3. No projects at all? It's a new account. Ask the user for their brand's website (never guess it), call `project__createFirst` with it (free, about 10-15 seconds: it reads the site and fills in the brand brief and logo), then carry on with what they asked. It only works while the account has no projects; later brands are set up at https://admakeai.com/dashboard.
 
 `adResearch__getProject` gives you the full brief; read it when the user's request depends on brand details (audience, positioning, what they actually sell).
 
@@ -124,7 +124,8 @@ Designs render in the background. After queueing one, **tell the user** it takes
 | User says... | Tool | Notes |
 | --- | --- | --- |
 | "list my projects" | `adResearch__listProjects` | One entry per brand/product. Start here, every session. |
-| "set up a new brand / project" | *(none)* | Not available through the connector. Point the user at https://admakeai.com/dashboard. |
+| "set up my brand" (no projects yet) | `project__createFirst` | Free. From the brand's website; ask for the URL. Only the account's first project. |
+| "set up another brand / project" | *(none)* | Not available through the connector. Point the user at https://admakeai.com/dashboard. |
 | "show the brand brief" | `adResearch__getProject` | Brief + competitors + research jobs + ad counts. |
 | "fix / update the brief, audience, industry" | `project__updateBrief` | Overwrites the brief fields you pass. A sharper brief improves every later design. |
 | "what product photos do we have" | `project__getAssets` | Asset URLs usable as `referenceImageUrls`. |
@@ -233,7 +234,7 @@ For `adGeneration__generateImage` the opposite applies: you are writing the fina
 ## Known limitations
 
 - Designs are **async**. `adGeneration__create` returns immediately with `{ id, status: "PENDING", creditCost, ... }`. Poll `adGeneration__getById` every few seconds until `status === "COMPLETED"`. Typical completion: 20-60s low quality, 60-120s high quality. The record's `prompt` field stays empty until the brief has been expanded.
-- Projects cannot be created through the connector — without one there is no brand brief to design against, so send the user to the dashboard.
+- The connector creates only an account's first project (`project__createFirst`). Further projects are made in the dashboard, so an existing brand is never duplicated by mistake.
 - **Pausing, resuming, or launching Meta ads isn't available.** Tell the user to change ad status in Meta Ads Manager.
 - The free plan has a **daily design cap**. The error is `FORBIDDEN: daily limit reached`. Tell the user to upgrade at https://admakeai.com/pricing.
 - Facebook tools need a **paid AdMakeAI plan** (free accounts get `FORBIDDEN: The Facebook Ads integration is available on paid plans`) and a **connected Facebook account**. If `facebookConnection__list` returns empty, point them to https://admakeai.com/dashboard/integrations/facebook.
