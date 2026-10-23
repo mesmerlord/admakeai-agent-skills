@@ -9,7 +9,7 @@ It bundles two pieces:
 
 ## Use it
 
-1. Install the plugin and connect the AdMakeAI connector from the plugin's **Connectors** tab. In Claude Code, run `/mcp`, pick the AdMakeAI server and choose **Authenticate**; nothing opens until you do. Sign in, or create a free account in the same step, then approve. Back in Claude Code, ask again: it doesn't retry a request from before you signed in.
+1. Install the plugin and connect the AdMakeAI connector from the plugin's **Connectors** tab. In Claude Code, run `/mcp`, pick the AdMakeAI server and choose **Authenticate**; nothing opens until you do. Sign in, or create a free account in the same step, then approve. Back in Claude Code, ask again: it doesn't retry a request from before you signed in. Until you sign in, Claude Code can already look up the Facebook ads any brand is running.
 2. New account? Claude asks for your brand's website and sets up your brand (product, audience, logo) from it before the first design.
 3. Ask Claude things like:
    - "Design three 4:5 ads for my matcha brand aimed at tired founders."
